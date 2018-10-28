@@ -1,0 +1,39 @@
+.invalid{
+	border: 1px solid red;
+}
+.valid{
+	border: 1px solid green;
+}
+/*
+input[name="pass"]::after{
+	content: "<br>";
+	display: block;
+}
+*/
+
+#regForm{
+	position: fixed;
+	width: 300px;
+	left: 40%;
+	transform: translateX(-50%);
+	top: 40%;
+	transform: translateY(-50%);
+	--border: 1px dashed yellow;
+	padding: 10px;
+}
+#regForm input,
+#regForm select
+{
+	display: block;
+	width: 100%;
+}
+#regForm .buttonSubmit{
+	margin-top: 5px;
+	--display: inline-block;
+	display: block;
+}
+
+.sv-error{
+	border-bottom: 1px solid red;
+	color: red;
+}

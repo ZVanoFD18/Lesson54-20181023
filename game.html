@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+    <script src="js/Helper.js"></script>
+    <script src="js/Auth.js"></script>
+</head>
+<body>
+<pre>
+    Тут должна быть игра, но т.к. она не доделана, то видим страницу-заглушку...
+</pre>
+<button id="idLogout">Выход из игры</button>
+<script>
+    if(!Auth.isAuthorized()){
+        Auth.redirectToLogin();
+    }
+    document.getElementById('idLogout').addEventListener('click', function (event) {
+        Auth.clearAuth();
+        Auth.redirectToGame();
+    });
+</script>
+</body>
+</html>
