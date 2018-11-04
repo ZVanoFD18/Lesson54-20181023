@@ -1,0 +1,75 @@
+.gui{
+	border: 1px solid red;
+	position: relative;
+	height: 30px;
+	min-width : 300px;
+}
+ .gui *{
+	position: absolute;
+	top:50%;
+	transform: translateY(-50%);
+}
+#btnSelectHiro1{
+	left: 0;
+}
+#btnSelectHiro2{
+	right: 0;
+}
+#btnDoBattle{
+	left:50%;
+	transform: translateY(-50%) translateX(-50%);
+}
+.battlefield {
+	position: relative;
+	border: 1px solid red;
+	width: 100%;
+	height: 200px;
+	box-sizing: border-box;
+	min-width: 500px;
+}
+.hiro{
+	position: absolute;
+	width: 120px;
+	height: 100px;
+	box-sizing: border-box;
+}
+.hiro-label{
+	font-weight: bold;
+}
+.hiro-level-value{
+	font-weight: bold;
+	font-style: italic;
+}
+#hiro1 {
+	border: 1px solid green;
+	left: 0;
+}
+#hiro2 {
+	border: 1px solid blue;
+	right: 0;
+}
+
+.menuSelectHiro{
+	position : absolute;
+	--border: 1px solid lawngreen;
+	width: 10rem;
+	max-height: 6rem;
+	overflow: auto;
+	border-radius: 0.5rem;
+}
+.menuSelectHiroItem {
+	display: block;
+	width: 100%;
+	height: 1.2rem;
+	border: 1px solid brown;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	text-align: center;
+	cursor: pointer;
+	background-color: #dfdfdf;
+}
+.menuSelectHiroItem:hover {
+	font-weight: bold;
+	color: red;
+	background-color: #1ccacd;
+}

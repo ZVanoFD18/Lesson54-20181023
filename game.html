@@ -3,22 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <title>Game</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/app.css">
     <script src="js/Helper.js"></script>
     <script src="js/Auth.js"></script>
+
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/hiro-slider-menu.css">
+    <script type="text/javascript" src="js/ContextMenu.js"></script>
+    <script type="text/javascript" src="js/ContextMenuItem.js"></script>
+    <script type="text/javascript" src="js/Chat.js"></script>
+    <script type="text/javascript" src="js/game/Hiro.js"></script>
+    <script type="text/javascript" src="js/game/Soldier.js"></script>
+    <script type="text/javascript" src="js/game/HiroSliderMenu.js"></script>
+    <script type="text/javascript" src="js/game/Game.js"></script>
 </head>
 <body>
-<pre>
-    Тут должна быть игра, но т.к. она не доделана, то видим страницу-заглушку...
-</pre>
+
 <button id="idLogout">Выход из игры</button>
+
+<div id="hiro-slide-menu" class="hiro-slider-menu">
+    <div class="hiro-slider-menu-prev">Prev</div>
+    <div class="hiro-slider-menu-content">
+        <div class="hiro-slider-menu-items">
+            <!--
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item1"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item2"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item3"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item4"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item5"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item6"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item7"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item8"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item9"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item10"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item11"></div>
+                        <div class="hiro-slider-menu-item hiro-slider-menu-item12"></div>
+            -->
+        </div>
+    </div>
+    <div class="hiro-slider-menu-next">Next</div>
+</div>
+
+<div class="gui">
+    <button id='btnSelectHiro1' type="button" name="button">Выбрать героя 1</button>
+    <button id='btnSelectHiro2' type="button" name="button">Выбрать героя 2</button>
+    <button id='btnDoBattle' type="button" name="button">Битва</button>
+</div>
+
+<div id="battlefield" class="battlefield">
+    <div id="hiro1" class="hiro">
+        <p class='hiro-name'>
+            <span class="hiro-label hiro-name-label">Имя:</span>
+            <span class="hiro-value hiro-name-value">value</span>
+        </p>
+        <p class='hiro-level'>
+            <span class="hiro-label hiro-level-label">Уровень:</span>
+            <span class="hiro-value hiro-level-value">value</span>
+        </p>
+        <p class='hiro-power'>
+            <span class="hiro-label hiro-power-label">Сила:</span>
+            <span class="hiro-value hiro-power-value">value</span>
+        </p>
+        <p class='hiro-battles'>
+            <span class="hiro-label hiro-battles-label">Битв:</span>
+            <span class="hiro-value hiro-battles-value">value</span>
+        </p>
+        <p class='hiro-soldiers'>
+            <span class="hiro-label hiro-soldiers-label">Солдат:</span>
+            <span class="hiro-value hiro-soldiers-value">value</span>
+        </p>
+    </div>
+    <div id="hiro2" class="hiro">
+        <p class='hiro-name'>
+            <span class="hiro-label hiro-name-label">Имя:</span>
+            <span class="hiro-value hiro-name-value">value</span>
+        </p>
+        <p class='hiro-level'>
+            <span class="hiro-label hiro-level-label">Уровень:</span>
+            <span class="hiro-value hiro-level-value">value</span>
+        </p>
+        <p class='hiro-power'>
+            <span class="hiro-label hiro-power-label">Сила:</span>
+            <span class="hiro-value hiro-power-value">value</span>
+        </p>
+        <p class='hiro-battles'>
+            <span class="hiro-label hiro-battles-label">Битв:</span>
+            <span class="hiro-value hiro-battles-value">value</span>
+        </p>
+        <p class='hiro-soldiers'>
+            <span class="hiro-label hiro-soldiers-label">Солдат:</span>
+            <span class="hiro-value hiro-soldiers-value">value</span>
+        </p>
+    </div>
+    <div id="hiroes-chat" class="chat">
+        <div class="chat-collapsed chat-hidden">
+            <div class="chat-icon chat-icon-title"></div>
+            <div class="chat-collapsed-text">Мой чат(свернут)</div>
+        </div>
+        <div class="chat-opened">
+            <div class="chat-title">
+                <span class="chat-icon chat-icon-title"></span>
+                <span class="chat-title-text">Мой чат(раскрыт)</span>
+                <span class="chat-title-icons">
+				<span class="chat-icon chat-icon-normalize"></span>
+				<span class="chat-icon chat-icon-collapse"></span>
+				<span class="chat-icon chat-icon-close"></span>
+			</span>
+            </div>
+            <div data-id="messages" class="chat-messages">Сообщения:</div>
+            <form name="chat-form" class="chat-form">
+                <label for="" class="chat-sender-label">
+                    <span class="label-text">Герой</span>
+                    <span class="label-input">
+                        <input type="text" name="hiro" placeholder="Укажите имя героя">
+                    </span>
+                </label>
+                <label for="" class="chat-message-label">
+                    <span class="label-text">Сообщение</span>
+                    <span class="label-input">
+                        <input type="text" name="message" placeholder="Введите сообщение">
+                    </span>
+                </label>
+                <button class="chat-button-submit" name="button-send">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-    if(!Auth.isAuthorized()){
+    if (!Auth.isAuthorized()) {
         Auth.redirectToLogin();
+    } else {
+        let game = new Game();
+        document.addEventListener('DOMContentLoaded', function () {
+            'use strict';
+            let hiroesConfig = [];
+            for (let i = 0; i < 12; i++) {
+                let item = {
+                    name: 'Hiro-' + (i + 1),
+                    classForSlideMenu: 'hiro-slider-menu-item' + (i + 1)
+                };
+                hiroesConfig.push(item);
+            }
+
+            game.init(hiroesConfig);
+        });
     }
     document.getElementById('idLogout').addEventListener('click', function (event) {
         Auth.clearAuth();
-        Auth.redirectToGame();
+        Auth.redirectToLogin();
+        //Auth.redirectToGame();
     });
 </script>
+
 </body>
 </html>

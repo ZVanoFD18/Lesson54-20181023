@@ -1,0 +1,168 @@
+/*-----------------------------------------------------------------------------
+ *Стили общего назначения для разных частей чата
+**/
+/* Скрытый элемент чата*/
+.chat-hidden{
+    display: none;
+    visibility: hidden;
+}
+/* Произвольная иконка. Базовые настройки.*/
+.chat-icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+/* При наведении. Размер с учетом рамки 24x24px.*/
+.chat-icon:hover{
+    border: 2px solid red;
+}
+
+/* Иконка "Чат". Просто иконка этого чата.*/
+.chat-icon-title{
+    background-image: url('../resources/chat-icon-title.png');
+    cursor: help;
+}
+
+/*-----------------------------------------------------------------------------
+ *chat-opened
+**/
+.chat-opened{
+    position: fixed;
+    width: 400px;
+    top : 0px;
+    right: 0px;
+    border: 1px solid gray;
+    background: silver;
+    box-sizing: border-box;
+}
+.chat-title{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 20px;
+}
+/* Заголовок открытого чата. Он же элемент перемещения окна чата.*/
+.chat-title-text{
+    cursor: move;
+    display: inline-block;
+    background: #18aeb0;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    right: 70px;
+    bottom: 0px;
+    text-align: left;
+    padding-left: 0.5rem;
+}
+/* Стиль заголовка во время перемещения чата.*/
+.chat-title-text-moveing{
+    background: yellow;
+}
+/* Область размешения иконок открытого окна чата.*/
+.chat-title-icons{
+    position: absolute;
+    right: 0px;
+    width: 70px;
+    text-align: right;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+/* Кнопка "Закрыть". Скрывает чат и все видимые индикаторы. Открыть можно только по событию JavaScript.*/
+.chat-icon-close{
+    background-image: url('../resources/chat-icon-close.png');
+}
+/* Кнопка "Свернуть" - чат скрыть и вывести активатор - тонкую полоску.*/
+.chat-icon-collapse{
+    background-image: url('../resources/chat-icon-collapse.png');
+}
+/* Кнопка "Нормализовать" - в исходное состояние.*/
+.chat-icon-normalize{
+    background-image: url('../resources/chat-icon-normalize.png');
+}
+/* Область показа отправленных сообщений (лог)*/
+.chat-messages{
+    height: 200px;
+    overflow: auto;
+    border: 1px  dashed gray;
+}
+/* Одна строка сообщения (в логе)*/
+.messages-row{
+    border-bottom: 1px solid blue;
+}
+.chat-form>label
+{
+    display: block;
+    position: relative;
+    height: 1.6rem;
+}
+.chat-form>label>.label-text
+{
+    position: absolute;
+    display: inline-block;
+    --width: 100px;
+    bottom: 3px;
+    left: 0;
+    width : 100px;
+    text-align: right;
+    --border-bottom: 1px solid blue;
+}
+.chat-form>label>.label-input
+{
+    position: absolute;
+    left : 104px;
+    right: 0;
+    display: inline-block;
+    --border: 1px solid green;
+}
+.chat-form>label>.label-input>*{
+    --display: block;
+    width: 100%;
+}
+.chat-form>.chat-button-submit{
+    position: relative;
+    width: 100px;
+    right : 0;
+}
+
+/*В строке сообщения стиль для "Отправитель"*/
+.messages-sender{
+    display: inline-block;
+    width: 20%;
+    border: 1px solid green;
+    font-weight: bold;
+}
+/*В строке сообщения стиль для "Текст сообщения"*/
+.messages-text{
+    display: inline-block;
+    width: 80%;
+    top: 0;
+    left: 24px;
+    right: 100px;
+    border: 1px solid green;
+    box-sizing: border-box;
+}
+/*-----------------------------------------------------------------------------
+chat-collapsed
+Интерфейс для режима ".chat-icon-collapse"
+*/
+.chat-collapsed{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    display: inline-block;
+    width: 22px;
+    height: 200px;
+    border: 1px solid yellow;
+    background-color: #00AA88;
+    cursor: pointer;
+}
+/* Текст, отображаемый на элементе "Свкрнутый чат"*/
+.chat-collapsed-text {
+    transform: rotate(90deg);
+    white-space: nowrap;
+}

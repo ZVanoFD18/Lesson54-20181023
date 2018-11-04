@@ -1,0 +1,106 @@
+.hiro-slider-menu{
+    position: relative;
+    height: 180px;
+    display: block;
+    box-sizing: border-box;
+    --border: 1px  solid deeppink ;
+}
+.hiro-slider-menu-prev,
+.hiro-slider-menu-next
+{
+    position: absolute;
+    display: inline-block;
+    border: 1px solid red;
+    box-sizing: border-box;
+    width: 30px;
+    top: 0px;
+    bottom: 0px;
+}
+.hiro-slider-menu-prev:hover,
+.hiro-slider-menu-next:hover
+{
+    background-color: #00AA88;
+}
+.hiro-slider-menu-prev{
+    left : 0px;
+}
+.hiro-slider-menu-next{
+    left : 680px;
+}
+.hiro-slider-menu-content{
+    display: inline-block;
+    overflow-x: scroll;
+    width: 650px;
+    height: 180px;
+    left: 30px;
+    position: absolute;
+    border: 1px solid red;
+    box-sizing: border-box;
+}
+.hiro-slider-menu-items{
+    display: inline-block;
+    height: 160px;
+    width: 2500px;
+}
+.hiro-slider-menu-item{
+    display: inline-block;
+    width: 200px;
+    height: 160px;
+    --background-position: center;
+    --background-size: cover;
+    box-sizing: border-box;
+    border: 1px solid #00AA88;
+    background-image: url('../resources/monsters.png');
+}
+.hiro-slider-menu-item:hover{
+    border: 1px dotted red;
+}
+/**----------------------------------------------------------------------------
+ *Ряд 1
+**/
+.hiro-slider-menu-item1{
+    --clip : rect(0px,60px,200px,0px);
+    --background-position:  -15px -15px;
+    --background-position:  780px 0px;
+    background-position:  -20px -40px;
+}
+.hiro-slider-menu-item2{
+    background-position:  -200px -40px;
+}
+.hiro-slider-menu-item3{
+    background-position:  -400px -40px;
+}
+
+.hiro-slider-menu-item4{
+    background-position:  -580px -40px;
+}
+/**----------------------------------------------------------------------------
+ *Ряд 2
+**/
+.hiro-slider-menu-item5{
+    background-position:  -25px -215px;
+}
+.hiro-slider-menu-item6{
+    background-position:  -215px -215px;
+}
+.hiro-slider-menu-item7{
+    background-position:  -410px -215px;
+}
+.hiro-slider-menu-item8{
+    background-position:  -590px -215px;
+}
+/**----------------------------------------------------------------------------
+ *Ряд 3
+**/
+.hiro-slider-menu-item9{
+    background-position:  -25px -405px;
+}
+.hiro-slider-menu-item10{
+    background-position:  -215px -405px;
+}
+.hiro-slider-menu-item11{
+    background-position:  -410px -405px;
+}
+.hiro-slider-menu-item12{
+    background-position:  -585px -405px;
+}
