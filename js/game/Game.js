@@ -7,24 +7,24 @@
 function Game() {
     let data = {
         isInit: false,
-        isBattle : false,
+        isBattle: false,
         hiroes: [],
         hiro1: undefined,
         hiro2: undefined,
-        hiro1menuSelect : new ContextMenu(),
-        hiro2menuSelect : new ContextMenu(),
-        sounds : {
-          hiro1 : 'resources/horse-galope.mp3',
-          hiro2 : 'resources/zvuk-poezda.mp3',
+        hiro1menuSelect: new ContextMenu(),
+        hiro2menuSelect: new ContextMenu(),
+        sounds: {
+            hiro1: 'resources/horse-galope.mp3',
+            hiro2: 'resources/zvuk-poezda.mp3',
         },
         /**
          * @type {HiroSliderMenu}
          */
-        sliderMenu : undefined,
+        sliderMenu: undefined,
         /**
          *@type {Chat}
          */
-        chat : undefined
+        chat: undefined
     };
     /**
      * Выполняет инициализацию объека.
@@ -34,35 +34,47 @@ function Game() {
             console.warn('Попытка повторной инициализации.');
             return;
         }
-        // document.addEventListener('contextmenu', function (event) {
-        //     console.log('disable context menu');
-        //     event.cancelBubble = true;
-        //     return false;
-        // });
-        if (!hiroesConfig) {
-            throw new Error('Не указаны герои.')
-        }
-        hiroesConfig.forEach(function (hiroConfig) {
-            let hiro = new Hiro(hiroConfig.name);
-            data.hiroes.push(hiro);
+        document.addEventListener('contextmenu', function (event) {
+            console.log('disable context menu');
+            event.preventDefault();
         });
-
+        document.getElementById('idButtonSave').addEventListener('click', (event) => {
+            this.save();
+        });
+        document.getElementById('idButtonLoad').addEventListener('click', (event) => {
+            this.load();
+        });
+        document.getElementById('idButtonClear').addEventListener('click', (event) => {
+            this.clear();
+        });
+        data.chat = new Chat({
+            renderTo: document.getElementById('hiroes-chat')
+        });
+        if (!this.load()){
+            if (!hiroesConfig) {
+                throw new Error('Не указаны герои.')
+            }
+            hiroesConfig.forEach(function (hiroConfig) {
+                let hiro = new Hiro(hiroConfig.name);
+                data.hiroes.push(hiro);
+            });
+        }
         data.sliderMenu = new HiroSliderMenu({
             renderTo: document.getElementById('hiro-slide-menu'),
             items: (function () {
                 let items = [];
                 hiroesConfig.forEach(function (hiroConfig) {
-                   items.push({
-                       name: hiroConfig.name,
-                       classForSlideMenu: hiroConfig.classForSlideMenu
-                   })
+                    items.push({
+                        name: hiroConfig.name,
+                        classForSlideMenu: hiroConfig.classForSlideMenu
+                    })
                 });
                 return items;
             }).call(this),
             onHiroSelected(item, posIndex) {
                 let hiro = undefined;
-                for (let i=0; i<data.hiroes.length; i++){
-                    if (item.name === data.hiroes[i].name){
+                for (let i = 0; i < data.hiroes.length; i++) {
+                    if (item.name === data.hiroes[i].name) {
                         hiro = data.hiroes[i];
                         break;
                     }
@@ -77,9 +89,9 @@ function Game() {
 
         document.getElementById('btnSelectHiro1').onclick = btnSelectHiro1.bind(this);
         data.hiro1menuSelect.addItemsByCallback(data.hiroes, function (hiro, index) {
-           return new ContextMenuItem(hiro.name, index, hiro, function (menuItem) {
-               onSelectHiro(menuItem.userData, true);
-           });
+            return new ContextMenuItem(hiro.name, index, hiro, function (menuItem) {
+                onSelectHiro(menuItem.userData, true);
+            });
         }).bindToDom(document.getElementById('btnSelectHiro1'));
         document.getElementById('btnSelectHiro2').onclick = btnSelectHiro2.bind(this);
         data.hiro2menuSelect.addItemsByCallback(data.hiroes, function (hiro, index) {
@@ -88,9 +100,18 @@ function Game() {
             });
         }).bindToDom(document.getElementById('btnSelectHiro2'));
         document.getElementById('btnDoBattle').onclick = btnDoBattle.bind(this);
-        data.chat = new Chat({
-            renderTo :  document.getElementById('hiroes-chat')
-        });
+        // Сохраняем состояние игры.
+        // Не катит, потому что на главной странице при нажатии на кнопку "idButtonLogout" очищается авторизация.
+        // window.addEventListener('beforeunload', ()=>{
+        //     this.save();
+        //     return false;
+        // }, true);
+        // window.onbeforeunload = (function(){
+        //     console.log('onbeforeunload', document.cookie)
+        //     this.save();
+        //     return undefined;
+        // }).bind(this);
+
         data.isInit = true;
     };
 
@@ -104,11 +125,11 @@ function Game() {
             || (data.hiro2 === hiro && !isHiro1)
         ) {
             alert('Герой уже выбран');
-        } else if(isHiro1 && hiro === data.hiro2){
+        } else if (isHiro1 && hiro === data.hiro2) {
             alert('Герой уже выбран в позиции 2');
-        } else if(!isHiro1 && hiro === data.hiro1){
+        } else if (!isHiro1 && hiro === data.hiro1) {
             alert('Герой уже выбран в позиции 1');
-        } else if(isHiro1){
+        } else if (isHiro1) {
             data.hiro1 = hiro;
             displayHiro(hiro);
         } else {
@@ -161,8 +182,8 @@ function Game() {
      * Выполняет действие "Сражение между выбраными героями"
      **/
     function btnDoBattle() {
-        if(data.inBattle){
-          return;
+        if (data.inBattle) {
+            return;
         }
         if (!(data.hiro1 && data.hiro2)) {
             alert('Нужно выбрать героев.');
@@ -226,4 +247,77 @@ function Game() {
         dom.getElementsByClassName('hiro-battles-value')[0].textContent = hiro.getBattlesCount();
         dom.getElementsByClassName('hiro-soldiers-value')[0].textContent = hiro.getSoldiersCount();
     }
+
+    /**
+     * Очищает сохраненные данные игрока.
+     */
+    this.clear = ()=>{
+        localStorage.removeItem(Auth.getLogin());
+        Auth.redirectToGame();
+    };
+    /**
+     * Сохраняет ход игры.
+     */
+    this.save = () => {
+        let saveData = {
+            version : 1,
+            hiro1name : data.hiro1 instanceof Hiro ? data.hiro1.getName() : '',
+            hiro2name : data.hiro2 instanceof Hiro ? data.hiro2.getName() : '',
+            hiroes: [],
+            chat: {
+                isHidden: data.chat.isHidden()
+            }
+        };
+        data.hiroes.forEach((hiro) => {
+            saveData.hiroes.push(hiro.serialize());
+        });
+        console.log(saveData);
+
+        saveData = JSON.stringify(saveData);
+        localStorage.setItem(Auth.getLogin(), saveData);
+    }
+    /**
+     * Загружает ход игры.
+     * @returns {boolean}
+     */
+    this.load = () => {
+        let loadedData = localStorage.getItem(Auth.getLogin());
+        if (loadedData === null){
+            return false;
+        }
+        loadedData = JSON.parse(loadedData);
+        if (loadedData.version !== 1){
+            return false;
+        }
+        if (loadedData.chat.isHidden) {
+            data.chat.collapse();
+        } else {
+            data.chat.open();
+        }
+        let newHiroes = [],
+            hiro1, hiro2;
+        loadedData.hiroes.forEach((hiroStr)=>{
+            let newHiro = new Hiro(null);
+            if (!newHiro.deserialize(hiroStr)){
+                return false;
+            }
+            newHiroes.push(newHiro);
+            if (newHiro.getName() === loadedData.hiro1name){
+                hiro1 = newHiro;
+            } else if (newHiro.getName() === loadedData.hiro2name){
+                hiro2 = newHiro;
+            }
+        });
+        data.hiroes = newHiroes;
+        if (hiro1 instanceof Hiro){
+            data.hiro1 = hiro1;
+            displayHiro(data.hiro1);
+        }
+        if (hiro2 instanceof Hiro){
+            data.hiro2 = hiro2;
+            displayHiro(data.hiro2);
+        }
+        return true;
+    }
+
 }

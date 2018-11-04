@@ -1,8 +1,12 @@
 'use strict';
 class Auth {
     static isAuthorized (){
-        let login=Helper.Cookie.get('login');
+        let login=this.getLogin();
         return login !== undefined;
+    }
+    static getLogin(){
+        let login=Helper.Cookie.get('login');
+        return login;
     }
     static redirectToLogin(){
         window.location.href = 'login.html';

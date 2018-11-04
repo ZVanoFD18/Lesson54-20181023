@@ -17,9 +17,10 @@ Soldier.prototype = {
      **/
     setHiro: function (hiro) {
         if (undefined !== this.hiro) {
-            alert('Мой герой "' + data.hiro.getName() + '"! Не стану дезертировать!');
+            alert('Мой герой "' + this.hiro.getName() + '"! Не стану дезертировать!');
             throw new Error('Герой уже привязан.');
         }
         this.hiro = hiro;
+        return this;
     }
 };

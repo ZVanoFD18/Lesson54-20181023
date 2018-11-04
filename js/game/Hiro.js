@@ -108,5 +108,30 @@ Hiro.prototype = {
             default:
                 throw new Error('Не поддерживаемый оезультат соревнования');
         }
+    },
+    serialize (){
+        let data = {
+            version : 1,
+            name : this.name,
+            level: this.level,
+            battlesCount: this.battlesCount,
+            soldiersCount : this.soldiers.length
+        };
+        return JSON.stringify(data);
+    },
+    deserialize (dataString){
+        let data = JSON.parse(dataString);
+        if (data.version !== 1){
+            return false;
+        }
+        this.name = data.name;
+        this.level = data.level;
+        this.battlesCount = data.battlesCount;
+        let soldiers = [];
+        for (let i=0; i<data.soldiersCount; i++){
+            soldiers.push((new Soldier()).setHiro(this));
+        }
+        this.soldiers = soldiers;
+        return true;
     }
 };

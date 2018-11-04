@@ -89,10 +89,18 @@ class Chat {
         this.chatOpenedEl.querySelector('[data-id="messages"]').appendChild(newMessageEl);
         return false;
     }
+    isHidden(){
+        let isHidden = this.chatOpenedEl.classList.contains('chat-hidden');
+        return isHidden;
+    }
 
     open() {
         this.chatOpenedEl.classList.remove('chat-hidden');
         this.chatCollapsedEl.classList.add('chat-hidden');
+    }
+    collapse (){
+        this.chatOpenedEl.classList.add('chat-hidden');
+        this.chatCollapsedEl.classList.remove('chat-hidden');
     }
 
     setSender(value) {

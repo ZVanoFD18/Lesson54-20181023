@@ -21,7 +21,10 @@
 </head>
 <body>
 
-<button id="idLogout">Выход из игры</button>
+<button id="idButtonLogout">Выход из игры</button>
+<button id="idButtonSave">Сохранить игру</button>
+<button id="idButtonLoad">Загрузить игру</button>
+<button id="idButtonClear">Очистить сохраненные данные игры</button>
 
 <div id="hiro-slide-menu" class="hiro-slider-menu">
     <div class="hiro-slider-menu-prev">Prev</div>
@@ -151,7 +154,7 @@
             game.init(hiroesConfig);
         });
     }
-    document.getElementById('idLogout').addEventListener('click', function (event) {
+    document.getElementById('idButtonLogout').addEventListener('click', function (event) {
         Auth.clearAuth();
         Auth.redirectToLogin();
         //Auth.redirectToGame();
